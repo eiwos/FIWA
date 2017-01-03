@@ -1,0 +1,11 @@
+-cmd echo contenedor
+fiwa.Fiwa
+-cp src/
+-main fiwa.Fiwa
+-js bin/fiwa.js
+--next
+-cmd echo cliente
+fiwa.Fiwa_client
+-cp src/
+-main fiwa.Fiwa_client
+-js bin/fiwa_client.js

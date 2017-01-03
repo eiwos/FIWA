@@ -1,0 +1,9 @@
+fiwa.Iwa
+-cp src/fiwa
+-main fiwa.Iwa
+-js bin/iwa.js
+#--next
+#fiwa.Iwa_client
+#-cp src/fiwa
+#-main fiwa.Iwa_client
+#-js bin/iwa_client.js
