@@ -1,4 +1,4 @@
-package fiwa.extraiwaclient;
+package fiwa.extraclient;
 
 class Game {
     var iwa : Dynamic = fiwa.Iwa_client;

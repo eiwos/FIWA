@@ -1,7 +1,7 @@
 package fiwa;
-import fiwa.extraiwa.Extraiwa;
-import fiwa.extraiwa.Player;
-import fiwa.extraiwa.Game;
+import fiwa.extra.Extraiwa;
+import fiwa.extra.Player;
+import fiwa.extra.Game;
 
 
 /*Ignora esta clase si vas a usar la libreria con haxe,

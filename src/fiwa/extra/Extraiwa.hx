@@ -1,4 +1,4 @@
-package fiwa.extraiwa;
+package fiwa.extra;
 import js.Browser;
 
 class Extraiwa {

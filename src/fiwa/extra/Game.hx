@@ -1,4 +1,4 @@
-package fiwa.extraiwa;
+package fiwa.extra;
 
 class Game {
   public var games_info : Map<String,Map<String,String>> = new Map();

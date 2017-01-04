@@ -1,4 +1,4 @@
-package fiwa.extraiwaclient;
+package fiwa.extraclient;
 import js.Browser;
 
 class Player {
