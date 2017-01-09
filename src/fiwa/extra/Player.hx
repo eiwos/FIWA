@@ -4,8 +4,8 @@ import js.Browser;
 class Player {
   public var players_status : Map<String,Int> = new Map();
   public var players_current_time : Map<String,Int> = new Map();
-  public var players_videos_duration : Map<String,Int> = new Map();
-  public var players_videos_info : Map<String,Map<String,String>> = new Map();
+  public var players_medias_duration : Map<String,Int> = new Map();
+  public var players_medias_info : Map<String,Map<String,String>> = new Map();
   public var players_qualities : Map<String,Array<Int>> = new Map();
   public var players_sources : Map<String,Array<String>> = new Map();
   public var players_controls : Map<String,Map<String,Int>> = new Map();
@@ -20,20 +20,20 @@ class Player {
     new Player();
   }
 
-  /*Enviar al widget que reproduzca el video */
-  public function play_video(frameid : String) : Void {
+  /*Enviar al widget que reproduzca el media */
+  public function play_media(frameid : String) : Void {
     iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_status", status: 1}), 'extraplayer');
     players_status[frameid] = 1;
   }
 
-  /*Enviar al widget que quite el video que esta reproduciendo */
-  public function stop_video(frameid : String) : Void {
+  /*Enviar al widget que quite el media que esta reproduciendo */
+  public function stop_media(frameid : String) : Void {
     iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_status", status: 0}), 'extraplayer');
     players_status[frameid] = 0;
   }
 
-  /*Enviar al widget que ponga en pausa el video */
-  public function pause_video(frameid : String) : Void {
+  /*Enviar al widget que ponga en pausa el media */
+  public function pause_media(frameid : String) : Void {
     iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_status", status: 2}), 'extraplayer');
     players_status[frameid] = 2;
   }
@@ -44,23 +44,23 @@ class Player {
     return players_status[frameid];
   }
 
-  /*Obtiene la duracion total del video actual en segundos*/
-  public inline function get_video_duration(frameid : String) : Int {
-    return players_videos_duration[frameid];
+  /*Obtiene la duracion total del media actual en segundos*/
+  public inline function get_media_duration(frameid : String) : Int {
+    return players_medias_duration[frameid];
   }
 
-  /*Obtiene el segundo actual en el que esta el video*/
+  /*Obtiene el segundo actual en el que esta el media*/
   public inline function get_current_time(frameid : String) : Int {
     return players_current_time[frameid];
   }
 
-  /*Pone el video en el segundo especificado*/
+  /*Pone el media en el segundo especificado*/
   public function set_time(frameid : String, time : Int) : Void {
     iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_time", time: time}), 'extraplayer');
     players_current_time[frameid] = time;
   }
 
-  /*Ejecuta una funcion cuando el video llega al segundo especificado en la variable `time`
+  /*Ejecuta una funcion cuando el media llega al segundo especificado en la variable `time`
   y se le pasara el id del elemento del iframe como argumento `tipo: String`*/
   public inline function on_time_do(frameid : String, time : Int, the_function : Dynamic) : Void {
     time_functions[frameid].set(time, the_function);
@@ -81,28 +81,28 @@ class Player {
     return players_controls[frameid][control];
   }
 
-  /*Obtiene las posibles calidades que se pueden asignar al video.
+  /*Obtiene las posibles calidades que se pueden asignar al media.
   se devolvera un valor ´int´ para entender su significado dirijase a la tabla de nombres y valores
   de los ajustes*/
   public inline function get_qualities(frameid : String) : Array<Int> {
     return players_qualities[frameid];
   }
 
-  /*Devuelve un ´Map´ con tags y sus valores relacionados con el video,
+  /*Devuelve un ´Map´ con tags y sus valores relacionados con el media,
   pare ver el modelo estadar de nombres y valores de los tags dirijase a las especificaciones
   del protocolo */
-  public inline function get_video_info(frameid : String) : Map<String,String> {
-    return players_videos_info[frameid];
+  public inline function get_media_info(frameid : String) : Map<String,String> {
+    return players_medias_info[frameid];
   }
 
-  /*Devuelve un ´Array´ con las fuentes (youtube, vimeo, ...) desde donde se pueden cargar videos al reproductor */
+  /*Devuelve un ´Array´ con las fuentes (youtube, vimeo, ...) desde donde se pueden cargar medias al reproductor */
   public inline function get_sources(frameid : String) : Array<String> {
     return players_sources[frameid];
   }
 
-  /*Cambia el video al especificado, en ´source´ tendremos que especificar la fuente, en ´video_id´ la id del video */
-  public inline function set_video(frameid : String, source : String, video_id : String) : Void {
-    iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_video", source: source, video: video_id}), 'extraiwa');
+  /*Cambia el media al especificado, en ´source´ tendremos que especificar la fuente, en ´media_id´ la id del media */
+  public inline function set_media(frameid : String, source : String, media_id : String) : Void {
+    iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_media", source: source, media: media_id}), 'extraiwa');
   }
 
   private function onmsg(data : String, element_id : String) : Void {
@@ -113,10 +113,10 @@ class Player {
       }
     } else if( data.msg == 'update_control' ) {
       players_controls[element_id][data.control] = data.value;
-    } else if( data.msg == 'update_video' ) {
-      players_videos_duration.set(element_id, data.duration);
+    } else if( data.msg == 'update_media' ) {
+      players_medias_duration.set(element_id, data.duration);
       for( i in 0...data.info_keys.length ) {
-        players_videos_info[element_id].set(data.info_keys[i], data.info_value[i]);
+        players_medias_info[element_id].set(data.info_keys[i], data.info_value[i]);
       }
     } else if( data.msg == 'update_qualities' ) {
       players_qualities[element_id] = data.qualities;

@@ -5,7 +5,7 @@ class Game {
   public var controllers : Map<String,Map<String,String>> = new Map();
   public var leadboards : Map<String,Map<String,Int>> = new Map();
   public var game_values : Map<String,Map<String,String>> = new Map();
-  var mobile_functions : Map<String,Array<Dynamic>> = new Map();
+  var phone_functions : Map<String,Array<Dynamic>> = new Map();
   var value_functions : Map<String,Array<Dynamic>> = new Map();
   var leadboard_functions : Map<String,Array<Dynamic>> = new Map();
   var iwa : Dynamic = fiwa.Iwa;
@@ -30,12 +30,12 @@ class Game {
     iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_controller", name: name, key: key}), 'extragame');
   }
 
-  public inline function on_mobile(frameid : String, the_function : Dynamic) : Void {
-    mobile_functions[frameid].push(the_function);
+  public inline function on_phone(frameid : String, the_function : Dynamic) : Void {
+    phone_functions[frameid].push(the_function);
   }
 
-  public inline function set_mobile_controller(frameid : String, value: Bool) : Void {
-    iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_mobile_controller", show: value}), 'extragame');
+  public inline function set_phone_controller(frameid : String, value: Bool) : Void {
+    iwa.send_to_frame(frameid, haxe.Json.stringify({msg: "set_phone_controller", show: value}), 'extragame');
   }
 
   public inline function set_style(frameid : String, style: String) : Void {
@@ -84,8 +84,8 @@ class Game {
       for( the_function in value_functions[element_id] ) {
         the_function(data.value_name, data.value);
       }
-    } else if( data.msg == "set_mobile" ) {
-      for( the_function in mobile_functions[element_id] ) {
+    } else if( data.msg == "set_phone" ) {
+      for( the_function in phone_functions[element_id] ) {
         the_function();
       }
     }

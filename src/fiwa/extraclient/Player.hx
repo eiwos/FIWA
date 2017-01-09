@@ -6,7 +6,7 @@ class Player {
   var time_functions : Array<Dynamic> = new Array();
   var controls_functions : Array<Dynamic> = new Array();
   var quality_functions : Array<Dynamic> = new Array();
-  var video_functions : Array<Dynamic> = new Array();
+  var media_functions : Array<Dynamic> = new Array();
   var iwa : Dynamic = fiwa.Iwa;
 
   public function new() {
@@ -17,15 +17,15 @@ class Player {
     new Player();
   }
 
-  public function init_player(sources : Array<String>, qualities : Array<Int>, video_info : Map<String,String>, video_duration : Int, controls : Map<String,Int>) : Void {
-    var info_keys : Array<String> = this.to_array_string(video_info.keys());
-    var info_value : Array<String> = this.to_array_string(video_info.iterator());
+  public function init_player(sources : Array<String>, qualities : Array<Int>, media_info : Map<String,String>, media_duration : Int, controls : Map<String,Int>) : Void {
+    var info_keys : Array<String> = this.to_array_string(media_info.keys());
+    var info_value : Array<String> = this.to_array_string(media_info.iterator());
     var controls_keys : Array<String> = this.to_array_string(controls.keys());
     var controls_values : Array<Int> = this.to_array_int(controls.iterator());
 
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_sources", sources: sources}), 'extraplayer');
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_qualities", qualities: qualities}), 'extraplayer');
-    iwa.send_to_parent(haxe.Json.stringify({msg: "update_video", duration: video_duration, info_keys: info_keys, info_values: info_value}), 'extraplayer');
+    iwa.send_to_parent(haxe.Json.stringify({msg: "update_media", duration: media_duration, info_keys: info_keys, info_values: info_value}), 'extraplayer');
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_controls", controls: controls_keys, values: controls_values}), 'extraplayer');
   }
 
@@ -62,20 +62,20 @@ class Player {
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_control", control: control, value: value}), 'extraplayer');
   }
 
-  /*Envia que el player a cambiado de video */
-  public function set_video_changed( video_info : Map<String,String>, video_duration : Int, qualities : Array<Int> ) : Void {
-    var info_keys : Array<String> = this.to_array_string(video_info.keys());
-    var info_value : Array<String> = this.to_array_string(video_info.iterator());
-    iwa.send_to_parent(haxe.Json.stringify({msg: "update_video", duration: video_duration, info_keys: info_keys, info_values: info_value}), 'extraplayer');
+  /*Envia que el player a cambiado de media */
+  public function set_media_changed( media_info : Map<String,String>, media_duration : Int, qualities : Array<Int> ) : Void {
+    var info_keys : Array<String> = this.to_array_string(media_info.keys());
+    var info_value : Array<String> = this.to_array_string(media_info.iterator());
+    iwa.send_to_parent(haxe.Json.stringify({msg: "update_media", duration: media_duration, info_keys: info_keys, info_values: info_value}), 'extraplayer');
     if( qualities != null ) {
       iwa.send_to_parent(haxe.Json.stringify({msg: "update_qualities", qualities: qualities}), 'extraplayer');
     }
   }
 
-  /* Registra una funcion que se ejecutara cuando el contenedor quiera cambiar de video, se le pasara
-  un ´String´ con el nombre de la fuente y otro ´String´ con el id del video*/
-  public inline function on_video_changed(the_function : Dynamic) : Void {
-    video_functions.push(the_function);
+  /* Registra una funcion que se ejecutara cuando el contenedor quiera cambiar de media, se le pasara
+  un ´String´ con el nombre de la fuente y otro ´String´ con el id del media*/
+  public inline function on_media_changed(the_function : Dynamic) : Void {
+    media_functions.push(the_function);
   }
 
   private function to_array_string(iterator:Iterator<Dynamic>) : Array<String> {
@@ -108,9 +108,9 @@ class Player {
       for( the_function in controls_functions ) {
         the_function(data.control, data.value);
       }
-    } else if( data.msg == 'set_video' ) {
-      for( the_function in video_functions ) {
-        the_function(data.source, data.video);
+    } else if( data.msg == 'set_media' ) {
+      for( the_function in media_functions ) {
+        the_function(data.source, data.media_id);
       }
 
     }
