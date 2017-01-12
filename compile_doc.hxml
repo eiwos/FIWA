@@ -1,0 +1,21 @@
+-cp src/
+-D doc-gen
+--no-output
+--each
+
+--next
+fiwa.Iwa
+fiwa.extra.Extraiwa
+fiwa.extra.Game
+fiwa.extra.Player
+
+fiwa.Iwa_client
+fiwa.extraclient.Extraiwa
+fiwa.extraclient.Game
+fiwa.extraclient.Player
+-xml doc/js.xml
+-js dummy.js
+
+
+--next
+-cmd sudo haxelib run dox -i doc/ -o doc/bin
