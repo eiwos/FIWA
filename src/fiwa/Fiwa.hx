@@ -4,8 +4,9 @@ import fiwa.extra.Player;
 import fiwa.extra.Game;
 
 
-/*Ignora esta clase si vas a usar la libreria con haxe,
- sirve para compilar la libreria de forma nativa a javascript
+/*
+  Ignora esta clase si vas a usar la libreria con haxe,
+  sirve para compilar la libreria de forma nativa a javascript
  */
 class Fiwa {
   public var iwa : Dynamic = new Iwa();

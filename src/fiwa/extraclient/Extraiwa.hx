@@ -15,17 +15,23 @@ class Extraiwa{
     Browser.window.addEventListener("DOMContentLoaded", onloaded);
   }
 
-  /*Registra una funcion que se ejecutara cuando la pagina que contiene el widget termine de cargarse */
+  /*
+  Registra una funcion que se ejecutara cuando la pagina que contiene el widget termine de cargarse
+  */
   public function on_parent_loaded(the_function : Dynamic) : Void {
     this.parent_loaded.push(the_function);
   }
 
-  /*Enviar que el wigget a terminado de ejecutarse 'Ejemplo: un video termina, game over en un videojuego ...' */
+  /*
+  Enviar que el wigget a terminado de ejecutarse 'Ejemplo: un video termina, game over en un videojuego ...'
+  */
   public inline function play_finish() : Void {
     iwa.send_to_channel('extraiwa', haxe.Json.stringify({msg: "finish"}));
   }
 
-  /*Enviar que el wigget a empezado a ejecutarse 'Ejemplo: un video empieza a reproducirse, un videojuego empieza ...' */
+  /*
+  Enviar que el wigget a empezado a ejecutarse 'Ejemplo: un video empieza a reproducirse, un videojuego empieza ...'
+  */
   public inline function play_started() : Void {
     iwa.send_to_channel('extraiwa', haxe.Json.stringify({msg: "playing"}));
   }

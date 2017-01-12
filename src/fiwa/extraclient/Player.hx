@@ -29,40 +29,54 @@ class Player {
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_controls", controls: controls_keys, values: controls_values}), 'extraplayer');
   }
 
-  /*Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el estado del player, se le pasara
-  un ´Int´ como argumento, para saber que significa dirijase a la tabla estados del reproductor del protocolo */
+  /*
+  Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el estado del player, se le pasara
+  un ´Int´ como argumento, para saber que significa dirijase a la tabla estados del reproductor del protocolo
+  */
   public inline function on_status_changed(the_function : Dynamic) : Void {
     status_functions.push(the_function);
   }
 
-  /*Envia que el estado del player a cambiado */
+  /*
+  Envia que el estado del player a cambiado
+  */
   public inline function set_player_status(status : Int) : Void {
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_status", status: status}), 'extraplayer');
   }
 
-  /*Envia en que segundo se encuentra el reproductor */
+  /*
+  Envia en que segundo se encuentra el reproductor
+  */
   public inline function set_current_time(time : Int) : Void {
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_time", time: time}), 'extraplayer');
   }
 
-  /* Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el segundo en el que va el player, se le pasara
-  un ´Int´ como argumento*/
+  /*
+   Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el segundo en el que va el player, se le pasara
+  un ´Int´ como argumento
+  */
   public inline function on_time_changed(the_function : Dynamic) : Void {
     time_functions.push(the_function);
   }
 
-  /* Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el valor de un ajuste, se le pasara
-  un ´Int´ como argumento*/
+  /*
+   Registra una funcion que se ejecutara cuando el contenedor quiera cambiar el valor de un ajuste, se le pasara
+  un ´Int´ como argumento
+  */
   public inline function on_control_changed(the_function : Dynamic) : Void {
     controls_functions.push(the_function);
   }
 
-  /*Envia que el valor de un ajuste a cambiado */
+  /*
+  Envia que el valor de un ajuste a cambiado
+  */
   public inline function set_control_value(control : String, value : Int) : Void {
     iwa.send_to_parent(haxe.Json.stringify({msg: "update_control", control: control, value: value}), 'extraplayer');
   }
 
-  /*Envia que el player a cambiado de media */
+  /*
+  Envia que el player a cambiado de media
+  */
   public function set_media_changed( media_info : Map<String,String>, media_duration : Int, qualities : Array<Int> ) : Void {
     var info_keys : Array<String> = this.to_array_string(media_info.keys());
     var info_value : Array<String> = this.to_array_string(media_info.iterator());
@@ -72,8 +86,10 @@ class Player {
     }
   }
 
-  /* Registra una funcion que se ejecutara cuando el contenedor quiera cambiar de media, se le pasara
-  un ´String´ con el nombre de la fuente y otro ´String´ con el id del media*/
+  /*
+   Registra una funcion que se ejecutara cuando el contenedor quiera cambiar de media, se le pasara
+  un ´String´ con el nombre de la fuente y otro ´String´ con el id del media
+  */
   public inline function on_media_changed(the_function : Dynamic) : Void {
     media_functions.push(the_function);
   }

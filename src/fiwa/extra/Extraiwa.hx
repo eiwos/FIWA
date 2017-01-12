@@ -19,25 +19,33 @@ class Extraiwa {
     Browser.window.addEventListener("DOMContentLoaded", onloaded);
   }
 
-  /*Registra una funcion que se ejecutara cuando un iframe termine de cargar (por lo que ya se puede establecer una comunicacion con el) y se le pasara el id del
-  elemento del iframe como argumento `tipo: String` */
+  /**
+  Registra una funcion que se ejecutara cuando un iframe termine de cargar (por lo que ya se puede establecer una comunicacion con el) y se le pasara el id del
+  elemento del iframe como argumento `tipo: String`
+  **/
   public function on_frame_loaded(the_function : Dynamic) : Void {
     frame_loaded.push(the_function);
   }
 
-  /*Registra una funcion que se ejecutara cuando un iframe empieze a ejecutarse 'Ejemplo: un video empieza a reproducirse, un videojuego empieza ...'
-   y se le pasara el id del elemento del iframe como argumento `tipo: String` */
+  /**
+  Registra una funcion que se ejecutara cuando un iframe empieze a ejecutarse 'Ejemplo: un video empieza a reproducirse, un videojuego empieza ...'
+   y se le pasara el id del elemento del iframe como argumento `tipo: String`
+   **/
   public function on_frame_playing(the_function : Dynamic) : Void {
     frame_playing.push(the_function);
   }
 
-  /*Registra una funcion que se ejecutara cuando un iframe termina de ejecutarse 'Ejemplo: un video termina, game over en un videojuego ...'
-   y se le pasara el id del elemento del iframe como argumento `tipo: String` */
+  /**
+  Registra una funcion que se ejecutara cuando un iframe termina de ejecutarse 'Ejemplo: un video termina, game over en un videojuego ...'
+  y se le pasara el id del elemento del iframe como argumento `tipo: String`
+   **/
   public function on_frame_finish(the_function : Dynamic) : Void {
     frame_finish.push(the_function);
   }
 
-  /*Devuelve un array de strings con todas las apis de extraiwa que el iframe tiene disponibles */
+  /**
+  Devuelve un array de strings con todas las apis de extraiwa que el iframe tiene disponibles
+  **/
   public function get_frame_extra_apis(frameid : String) : Array<String> {
     var apis : Array<String> = new Array();
     var all : Map<String,String> = iwa.get_frame_apis(frameid);
