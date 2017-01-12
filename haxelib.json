@@ -1,0 +1,12 @@
+{
+  "name": "FIWA",
+  "url" : "https://github.com/eiwos/FIWA",
+  "license": "MIT",
+  "tags": ["js", "javascript", "iframe", "widget", "html", "protocol"],
+  "description": "Unified communication protocol between html widgets and their container.",
+  "version": "0.0.1",
+  "classPath": "src/",
+  "releasenote": "Alpha release, not tested.",
+  "contributors": ["endes123321"],
+  "dependencies": {  }
+}
